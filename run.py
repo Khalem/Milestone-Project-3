@@ -3,6 +3,17 @@ from tests import *
 from flask import Flask, redirect, render_template, request
 
 app = Flask(__name__)
+text_riddles = ["What is red and white and red all over?", "HELLO"]
+answers = ["A Newspaper", "HI"]
+
+def riddle_placement(iteration=0):
+    #Create function to get the correct placement for which riddle the user is on
+    if iteration == 1:
+        return "st"
+    elif iteration == 2 or iteration == 3:
+        return "rd"
+    else: 
+        return "th"
 
 @app.route('/', methods=["GET", "POST"])
 def index():
@@ -23,11 +34,9 @@ def choice(username):
 @app.route('/<username>/<choice>')
 def riddles(username, choice):
     # User answers riddles
-    
-    # if choice == "Text":
-        
-    # else:
-    return render_template("quiz.html")
+    if choice == "Text":
+        return render_template("quiz.html", txtriddles = text_riddles)
+
         
 
 
