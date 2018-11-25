@@ -8,9 +8,10 @@
 </head>
 <body>
     <!-- User guesses riddles -->
-    {% for riddle in txtriddles %}
     <h1>1st Riddle</h1>
-    <p>{{ riddle }}</p>
+    <p>{{ textriddle }}</p>
+    {% for incorrect in incorrect_answers %}
+    <p><small>{{ incorrect }}</small></p>
     {% endfor %}
     <form method="POST">
         <input type="textarea" name="guess"/>

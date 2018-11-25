@@ -3,8 +3,9 @@ from tests import *
 from flask import Flask, redirect, render_template, request
 
 app = Flask(__name__)
-text_riddles = ["What is red and white and red all over?", "HELLO"]
-answers = ["A Newspaper", "HI"]
+text_riddles = ["What is red and white and red all over?", "What do you call 2 witches that live together?"]
+answers = ["A Newspaper", "Broommates"]
+incorrect_answers = []
 
 def riddle_placement(iteration=0):
     #Create function to get the correct placement for which riddle the user is on
@@ -31,11 +32,25 @@ def choice(username):
         return redirect("username/" + request.form["choice"])
     return render_template("choice.html", username = username)
 
-@app.route('/<username>/<choice>')
+@app.route('/<username>/<choice>', methods=["GET", "POST"])
 def riddles(username, choice):
     # User answers riddles
     if choice == "Text":
-        return render_template("quiz.html", txtriddles = text_riddles)
+        textriddle = text_riddles[0]
+        
+        if request.method == "POST":
+            if request.form["guess"] == answers[0]:
+                return redirect("username/choice/1")
+            else: 
+                incorrect_answers.append(request.form["guess"])
+                
+        return render_template("quiz.html", textriddle = textriddle, incorrect_answers = incorrect_answers)
+
+@app.route('/<username>/<choice>/<number>', methods=["GET", "POST"])
+def get_riddles(username, choice, number):
+    if number == "1":
+        textriddle = text_riddles[1]
+        return render_template("quiz.html", textriddle = textriddle)
 
         
 
