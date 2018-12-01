@@ -7,6 +7,13 @@
     <title>15 Riddles</title>
 </head>
 <body>
+    <!--Sidebar to display scores-->
+    <div class="sidebar">
+        <h2>Leaderboards</h2>
+        {% for x in highscores %}
+            <p><span>{{ x[0] }}: </span>{{ x[1] }}</p><br/>
+        {%  endfor %}
+    </div>
     <!-- User then picks wether he/she wants a photo or text riddles -->
     <h1>15 Riddles</h1>
     <p>We're nearly there {{ username }}, choose either a text or photo riddle.</p>

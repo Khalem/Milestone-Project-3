@@ -7,6 +7,13 @@
     <title>15 Riddles</title>
 </head>
 <body>
+    <!--Sidebar to display scores-->
+    <div class="sidebar">
+        <h2>Leaderboards</h2>
+        {% for x in highscores %}
+            <p><span>{{ x[0] }}: </span>{{ x[1] }}</p><br/>
+        {%  endfor %}
+    </div>
     <!-- User guesses riddles -->
     <h1>1st Riddle</h1>
     <p>{{ textriddle }}</p>
