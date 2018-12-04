@@ -4,10 +4,11 @@ from tests import *
 from flask import Flask, redirect, render_template, request
 
 app = Flask(__name__)
-text_riddles = ["What is red and white and red all over?", "What do you call 2 witches that live together?"]
-answers = ["A Newspaper", "Broommates"]
+text_riddles = ["What is red and white and red all over?", "What do you call 2 witches that live together?", "What is my name?"]
+answers = ["A Newspaper", "Broommates", "Khalem"]
 incorrect_answers = []
 dict_score = {}
+points = 0
 
 #This function will update scores as the user plays the game
 def update_scores():
@@ -27,7 +28,23 @@ def get_high_scores():
     new_tuple = tuple(data.items())
     sorted_tuple = sorted(new_tuple, key=lambda x: x[1], reverse=True)
     return sorted_tuple
-    
+"""
+This function will give unique scores depending on how many tries it took the user to get the correct answer. This will give the leaderboards some extra depth
+"""
+def dynamic_scoring(incorrect, points):
+    if len(incorrect) == 0:
+        points = points + 10
+        return points
+    elif len(incorrect) == 1:
+        points = points + 7
+        return points
+    elif len(incorrect) > 1 and len(incorrect) < 4:
+        points = points + 4
+        return points
+    else:
+        points = points + 1
+        return points
+
 def riddle_placement(iteration=0):
     #Create function to get the correct placement for which riddle the user is on
     if iteration == 1:
@@ -51,185 +68,62 @@ def index():
     
 @app.route('/<username>', methods=["GET", "POST"])
 def choice(username):
+    highscores = get_high_scores()
     # User choose which type of riddle they want
     if request.method == "POST":
         return redirect(username + "/" + request.form["choice"])
-    return render_template("choice.html", username = username)
+    return render_template("choice.html", username = username, highscores = highscores)
 
 @app.route('/<username>/<choice>', methods=["GET", "POST"])
 def riddles(username, choice):
     # User answers riddles
+    highscores = get_high_scores()
     if choice == "Text":
         textriddle = text_riddles[0]
         
         if request.method == "POST":
             # If guess is right, will redirect to the 2nd riddle
             if request.form["guess"] == answers[0]:
+                
+                # If answer is right, user will recieve points
+                dict_score[username] = dynamic_scoring(incorrect_answers, points)
+                update_scores()
                 # Clearing list for next question
                 incorrect_answers[:] = []
-                #If answer is right, user will recieve point
-                dict_score[username] = 1
+                
                 return redirect(username + "/" + choice + "/1")
             # Otherwise, will append incorrect answer to list to be printed on users screen
             else: 
                 incorrect_answers.append(request.form["guess"])
                 
-        return render_template("quiz.html", textriddle = textriddle, incorrect_answers = incorrect_answers)
-"""
-The following function will redirect according to which part of the riddle the user is on. 
+        return render_template("quiz.html", textriddle = textriddle, incorrect_answers = incorrect_answers, highscores = highscores)
 
-(Will try to loop instead of having if statements further down the line)
+"""
+This function will just increase the number, while converting it to unicode
+"""
+def update_number(number):
+    return unicode(number + 1)
+
+""" 
+I increase the variable number up by one each time the user gets a question right, redirecting them back
+to this function with a new variable
 """
 @app.route('/<username>/<choice>/<number>', methods=["GET", "POST"])
 def get_riddles(username, choice, number):
-    if number == "1":
-        textriddle = text_riddles[1]
+    highscores = get_high_scores()
+    user_number = int(number)
+    textriddle = text_riddles[user_number]
         
-        if request.method == "POST":
-            if request.form["guess"] == answers[1]:
-                incorrect_answers[:] = []
-                dict_score[username] = 2
-                update_scores()
-                return redirect(username + "/" + choice + "/2")
-            else:
-                incorrect_answers.append(request.form["guess"])
+    if request.method == "POST":
+        if request.form["guess"] == answers[user_number]:
+            dict_score[username] = dynamic_scoring(incorrect_answers, points)
+            incorrect_answers[:] = []
+            update_scores()
+            return redirect(username + "/" + choice + "/" + update_number(user_number))
+        else:
+            incorrect_answers.append(request.form["guess"])        
         
-        return render_template("quiz.html", textriddle = textriddle, incorrect_answers = incorrect_answers)
-    elif number == "2":
-        textriddle = text_riddles[2]
-        
-        if request.method == "POST":
-            if request.form["guess"] == answers[2]:
-                incorrect_answers[:] = []
-                return redirect(username + "/" + choice + "/3")
-            else:
-                incorrect_answers.append(request.form["guess"])
-        
-        return render_template("quiz.html", textriddle = textriddle, incorrect_answers = incorrect_answers)
-    elif number == "3":
-        textriddle = text_riddles[3]
-        
-        if request.method == "POST":
-            if request.form["guess"] == answers[3]:
-                incorrect_answers[:] = []
-                return redirect(username + "/" + choice + "/4")
-            else:
-                incorrect_answers.append(request.form["guess"])
-        
-        return render_template("quiz.html", textriddle = textriddle, incorrect_answers = incorrect_answers)
-    elif number == "4":
-        textriddle = text_riddles[4]
-        
-        if request.method == "POST":
-            if request.form["guess"] == answers[4]:
-                incorrect_answers[:] = []
-                return redirect(username + "/" + choice + "/5")
-            else:
-                incorrect_answers.append(request.form["guess"])
-        
-        return render_template("quiz.html", textriddle = textriddle, incorrect_answers = incorrect_answers)
-    elif number == "5":
-        textriddle = text_riddles[5]
-        
-        if request.method == "POST":
-            if request.form["guess"] == answers[5]:
-                incorrect_answers[:] = []
-                return redirect(username + "/" + choice + "/6")
-            else:
-                incorrect_answers.append(request.form["guess"])
-        
-        return render_template("quiz.html", textriddle = textriddle, incorrect_answers = incorrect_answers)
-    elif number == "6":
-        textriddle = text_riddles[6]
-        
-        if request.method == "POST":
-            if request.form["guess"] == answers[6]:
-                incorrect_answers[:] = []
-                return redirect(username + "/" + choice + "/7")
-            else:
-                incorrect_answers.append(request.form["guess"])
-        
-        return render_template("quiz.html", textriddle = textriddle, incorrect_answers = incorrect_answers)
-    elif number == "7":
-        textriddle = text_riddles[7]
-        
-        if request.method == "POST":
-            if request.form["guess"] == answers[7]:
-                incorrect_answers[:] = []
-                return redirect(username + "/" + choice + "/8")
-            else:
-                incorrect_answers.append(request.form["guess"])
-        
-        return render_template("quiz.html", textriddle = textriddle, incorrect_answers = incorrect_answers)
-    elif number == "8":
-        textriddle = text_riddles[8]
-        
-        if request.method == "POST":
-            if request.form["guess"] == answers[8]:
-                incorrect_answers[:] = []
-                return redirect(username + "/" + choice + "/9")
-            else:
-                incorrect_answers.append(request.form["guess"])
-        
-        return render_template("quiz.html", textriddle = textriddle, incorrect_answers = incorrect_answers)
-    elif number == "9":
-        textriddle = text_riddles[9]
-        
-        if request.method == "POST":
-            if request.form["guess"] == answers[9]:
-                incorrect_answers[:] = []
-                return redirect(username + "/" + choice + "/10")
-            else:
-                incorrect_answers.append(request.form["guess"])
-        
-        return render_template("quiz.html", textriddle = textriddle, incorrect_answers = incorrect_answers)
-    elif number == "10":
-        textriddle = text_riddles[10]
-        
-        if request.method == "POST":
-            if request.form["guess"] == answers[10]:
-                incorrect_answers[:] = []
-                return redirect(username + "/" + choice + "/11")
-            else:
-                incorrect_answers.append(request.form["guess"])
-        
-        return render_template("quiz.html", textriddle = textriddle, incorrect_answers = incorrect_answers)
-    elif number == "11":
-        textriddle = text_riddles[11]
-        
-        if request.method == "POST":
-            if request.form["guess"] == answers[11]:
-                incorrect_answers[:] = []
-                return redirect(username + "/" + choice + "/12")
-            else:
-                incorrect_answers.append(request.form["guess"])
-        
-        return render_template("quiz.html", textriddle = textriddle, incorrect_answers = incorrect_answers)
-    elif number == "12":
-        textriddle = text_riddles[12]
-        
-        if request.method == "POST":
-            if request.form["guess"] == answers[12]:
-                incorrect_answers[:] = []
-                return redirect(username + "/" + choice + "/13")
-            else:
-                incorrect_answers.append(request.form["guess"])
-        
-        return render_template("quiz.html", textriddle = textriddle, incorrect_answers = incorrect_answers)
-    elif number == "13":
-        textriddle = text_riddles[13]
-        
-        if request.method == "POST":
-            if request.form["guess"] == answers[13]:
-                incorrect_answers[:] = []
-                return redirect(username + "/" + choice + "/14")
-            else:
-                incorrect_answers.append(request.form["guess"])
-        
-        return render_template("quiz.html", textriddle = textriddle, incorrect_answers = incorrect_answers)
-
-        
-
+    return render_template("quiz.html", textriddle = textriddle, incorrect_answers = incorrect_answers, highscores = highscores)
 
 
 app.run(host=os.getenv('IP'), port=int(os.getenv('PORT')), debug=True)
