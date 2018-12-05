@@ -4,15 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <title>15 Riddles</title>
 </head>
 <body>
     <!--Sidebar to display scores-->
     <div class="sidebar">
         <h2>Leaderboards</h2>
+        
+        <!--Putting crown on first place in leaderboards - done by taking first item out of loop and put in manually to add fontawesome.-->
+        <p><i class="fas fa-crown"></i><span> {{highscores[0][0].title()}}: </span>{{highscores[0][1]}}</p><br/>
         {% for x in highscores %}
-            <p><span>{{ x[0] }}: </span>{{ x[1] }}</p><br/>
-        {%  endfor %}
+            {% if x == highscores[0]: %}
+                {{ continue }}
+            {% else %}
+                <p><span>{{ x[0].title() }}: </span>{{ x[1] }}</p><br/>
+            {% endif %}
+        {% endfor %}
     </div>
     <!-- User enters username -->
     <h1>15 Riddles</h1>
