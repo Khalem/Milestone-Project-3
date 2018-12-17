@@ -1,7 +1,8 @@
 import os
 import json
-from tests import *
+import random
 from flask import Flask, redirect, render_template, request
+from difflib import SequenceMatcher
 
 app = Flask(__name__)
 text_riddles = ["What is red and white and red all over?", "What do you call 2 witches that live together?", "What is my name?"]
@@ -35,19 +36,16 @@ def get_high_scores():
 """
 This function will give unique scores depending on how many tries it took the user to get the correct answer. This will give the leaderboards some extra depth - need to add more scoring options.
 """
-def dynamic_scoring(incorrect, points):
+def dynamic_scoring(incorrect, new_points):
+    global points
     if len(incorrect) == 0:
         points = points + 10
-        return points
     elif len(incorrect) == 1:
         points = points + 7
-        return points
     elif len(incorrect) > 1 and len(incorrect) < 4:
         points = points + 4
-        return points
     else:
         points = points + 1
-        return points
 
 
 """
@@ -71,9 +69,14 @@ def index():
     if request.method == "POST":
         with open("data/usernames.txt", "a") as user_list:
             # Appending username to dictionary
-            dict_score[request.form["username"]] = 0
-            user_list.writelines(request.form["username"] + "\n")
-        return redirect(request.form["username"])
+            
+            """
+                To avoid having duplicate usernames, I will add a seperator and a random number up to 1 million. This will be split in the template to only display the name.
+            """
+            
+            username = request.form["username"] + "^" + str(random.randint(1, 1000000))
+            dict_score[username] = 0
+        return redirect(username)
     return render_template("index.html", highscores = highscores)
     
 @app.route('/<username>', methods=["GET", "POST"])
@@ -94,20 +97,21 @@ def riddles(username, choice):
         textriddle = text_riddles[0]
         
         if request.method == "POST":
-            # If guess is right, will redirect to the 2nd riddle
-            if request.form["guess"] == answers[0]:
-                
-                # If answer is right, user will recieve points
-                dict_score[username] = dynamic_scoring(incorrect_answers, points)
+            
+            m = SequenceMatcher(None, request.form["guess"].title(), answers[0])
+            if m.ratio() >= 0.85:
+                 # If answer is right, user will recieve points
+                dynamic_scoring(incorrect_answers, points)
+                dict_score[username] = points
                 update_scores()
                 # Clearing list for next question
                 incorrect_answers[:] = []
-                
                 
                 return redirect(username + "/" + choice + "/1")
             # Otherwise, will append incorrect answer to list to be printed on users screen
             else: 
                 incorrect_answers.append(request.form["guess"])
+            
                 
         return render_template("quiz.html", textriddle = textriddle, incorrect_answers = incorrect_answers, highscores = highscores, riddle_number = riddle_number)
 
@@ -123,6 +127,7 @@ to this function with a new variable
 """
 @app.route('/<username>/<choice>/<number>', methods=["GET", "POST"])
 def get_riddles(username, choice, number):
+    print(points)
     highscores = get_high_scores()
     user_number = int(number)
     
@@ -130,15 +135,20 @@ def get_riddles(username, choice, number):
     textriddle = text_riddles[user_number]
         
     if request.method == "POST":
-        if request.form["guess"] == answers[user_number]:
-            dict_score[username] = dynamic_scoring(incorrect_answers, points)
-            incorrect_answers[:] = []
+        m = SequenceMatcher(None, request.form["guess"].title(), answers[user_number])
+        if m.ratio() >= 0.85:
+            dynamic_scoring(incorrect_answers, points)
+            dict_score[username] = points
             update_scores()
+            incorrect_answers[:] = []
             return redirect(username + "/" + choice + "/" + update_number(user_number))
+          
         else:
-            incorrect_answers.append(request.form["guess"])        
+            incorrect_answers.append(request.form["guess"])  
+
+              
         
-    return render_template("quiz.html", textriddle = textriddle, incorrect_answers = incorrect_answers, highscores = highscores, riddle_number = riddle_number)
+    return render_template("quizes.html", textriddle = textriddle, incorrect_answers = incorrect_answers, highscores = highscores, riddle_number = riddle_number)
 
 
 app.run(host=os.getenv('IP'), port=int(os.getenv('PORT')), debug=True)

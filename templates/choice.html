@@ -13,18 +13,28 @@
         <h2>Leaderboards</h2>
         
         <!--Putting crown on first place in leaderboards - done by taking first item out of loop and put in manually to add fontawesome.-->
-        <p><i class="fas fa-crown"></i><span> {{highscores[0][0].title()}}: </span>{{highscores[0][1]}}</p><br/>
+        
+        {% with new_username = highscores[0][0].split("^") %}
+            <p><i class="fas fa-crown"></i><span> {{new_username[0].title()}}: </span>{{highscores[0][1]}}</p><br/>
+        {% endwith %}
+        
+        <!-- Splitting username to only display the username, not the unique identifier -->
+        
         {% for x in highscores %}
             {% if x == highscores[0]: %}
                 {{ continue }}
             {% else %}
-                <p><span>{{ x[0].title() }}: </span>{{ x[1] }}</p><br/>
+                {% with new_username = x[0].split("^") %}
+                <p><span>{{ new_username[0].title() }}: </span>{{ x[1] }}</p><br/>
+                {% endwith %}
             {% endif %}
         {% endfor %}
     </div>
     <!-- User then picks wether he/she wants a photo or text riddles -->
     <h1>15 Riddles</h1>
-    <p>We're nearly there {{ username }}, choose either a text or photo riddle.</p>
+    {% with new_user = username.split("^") %}
+    <p>We're nearly there {{ new_user[0].title() }}, choose either a text or photo riddle.</p>
+    {% endwith %}
     <form method="POST">
         <button name="choice" value="Photo">Photo</button>
         <button name="choice" value="Text">Text</button>
