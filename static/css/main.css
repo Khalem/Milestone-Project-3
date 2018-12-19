@@ -71,10 +71,10 @@ h3 {
 .jumbotron h1 {
     font-weight: 900;
     letter-spacing: -5px;
-    margin-bottom: 7.5%;
+    margin-bottom: 15%;
 }
 .jumbotron form{
-    margin-top: 7.5%;
+    margin-top: 15%;
 }
 .leaderboards-hr {
     width: 25%;
@@ -116,13 +116,13 @@ h3 {
     background: linear-gradient(45deg, #5BE4FF 10%, rgba(164, 84, 255, 1) 100%);
 }
 .button-bg-x{
-    background: #ff5e62;
-    background: -moz-linear-gradient(-45deg, #ff9966 10%, #ff5e62 100%);
-    background: -webkit-gradient(-45deg top, right top, color-stop(10%, #ff9966), color-stop(100%, #ff5e62));
-    background: -webkit-linear-gradient(45deg, #ff9966 10%, #ff5e62 100%);
-    background: -o-linear-gradient(45deg, #ff9966 10%, #ff5e62 100%);
-    background: -ms-linear-gradient(45deg, #ff9966 10%, #ff5e62 100%);
-    background: linear-gradient(45deg, #ff9966 10%, #ff5e62 100%);
+    background: #698DE8;
+    background: -moz-linear-gradient(-135deg, #5BE4FF 10%, #00E887 100%);
+    background: -webkit-gradient(-135deg top, right top, color-stop(10%, #5BE4FF), color-stop(100%, #00E887));
+    background: -webkit-linear-gradient(-135deg, #5BE4FF 10%, #00E887 100%);
+    background: -o-linear-gradient(-135deg, #5BE4FF 10%, #00E887 100%);
+    background: -ms-linear-gradient(-135deg, #5BE4FF 10%, #00E887 100%);
+    background: linear-gradient(-135deg, #5BE4FF 10%, #00E887 100%);
 }
 input[type=text], input[type=textarea]{
     padding: 5px 15px;

@@ -5,8 +5,22 @@ from flask import Flask, redirect, render_template, request
 from difflib import SequenceMatcher
 
 app = Flask(__name__)
-text_riddles = ["What is red and white and red all over?", "What do you call 2 witches that live together?", "What is my name?"]
-answers = ["A Newspaper", "Broommates", "Khalem"]
+text_riddles = ["What is red and white and red all over?", 
+                "What do you call 2 witches that live together?", 
+                "The more you take, the more you leave behind. What am I?", 
+                "What has a head, a tail, is brown, and has no legs?",
+                "Can you name three consecutive days without using the words Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, or Sunday?",
+                "David's father has three sons : Snap, Crackle and _____ ?",
+                "What room do ghosts avoid?",
+                "When does Christmas come before Thanksgiving?",
+                "What has many keys, but can't even open a single door?",
+                "Mr. and Mrs. Mustard have six daughters and each daughter has one brother. How many people are in the Mustard family?",
+                "What belongs to you, but other people use it more than you?",
+                "Tall I am young, Short I am old, While with life I glow, Wind is my foe. What am I?",
+                "Re-arrange the letters, 'O O U S W T D N E J R' to spell just one word.",
+                "I am not alive, but I grow; I don't have lungs, but I need air; I don't have a mouth, but water kills me. What am I?",
+                "Before Mount Everest was discovered, what was the highest mountain on Earth?"]
+answers = ["A Newspaper", "Broommates", "Footsteps", "A Penny", "Yesterday, Today, and Tomorrow", "David", "The Living Room", "In The Dictionary", "A Piano", "9", "Your Name", "A Candle", "Just One Word", "Fire", "Mount Everest"]
 incorrect_answers = []
 dict_score = {}
 points = 0
@@ -129,6 +143,17 @@ def get_riddles(username, choice, number):
     highscores = get_high_scores()
     user_number = int(number)
     
+    """
+    When user reaches the end of the quiz, user will have the option to start again
+    """
+    if user_number == 15:
+        
+        if request.method == "POST":
+            if request.form["play-again"] == "yes":
+                return redirect("/")
+        
+        return render_template("finished.html", highscores = highscores, points = points)
+
     riddle_number = riddle_placement(user_number)
     textriddle = text_riddles[user_number]
         
