@@ -1,0 +1,158 @@
+/*  --------- Text Styles --------*/
+
+body {
+    background-color: #F6F6F6;
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+}
+
+.bold {
+    font-weight: 700;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.center {
+    text-align: center;
+}
+
+.gradient {
+    background: #698DE8;
+    background: -moz-linear-gradient(-135deg, rgba(0, 230, 255, 1) 0%, rgba(164, 84, 255, 1) 100%);
+    background: -webkit-gradient(-135deg top, right top, color-stop(0%, rgba(0, 230, 255, 1)), color-stop(100%, rgba(164, 84, 255, 1)));
+    background: -webkit-linear-gradient(-135deg, rgba(0, 230, 255, 1) 0%, rgba(164, 84, 255, 1) 100%);
+    background: -o-linear-gradient(-135deg, rgba(0, 230, 255, 1) 0%, rgba(164, 84, 255, 1) 100%);
+    background: -ms-linear-gradient(-135deg, rgba(0, 230, 255, 1) 0%, rgba(164, 84, 255, 1) 100%);
+    background: linear-gradient(-135deg, rgba(0, 230, 255, 1) 0%, rgba(164, 84, 255, 1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+h3 {
+    font-weight: 700;
+    margin: 1em;
+    letter-spacing: 0.2em;
+    font-size: 1em;
+}
+.bg-blue{
+    color: #698DE8;
+}
+/*  -------- /Text Styles --------*/
+
+/* Sidebar and Main Content */
+
+.sidebar {
+    background: #202020;
+    background: -moz-linear-gradient(-135deg, #202020 0%, #252D42 100%);
+    background: -webkit-gradient(-135deg top, right top, color-stop(0%, #202020), color-stop(100%, #252D42));
+    background: -webkit-linear-gradient(-135deg, #202020 0%, #252D42 100%);
+    background: -o-linear-gradient(-135deg, #202020 0%, #252D42 100%);
+    background: -ms-linear-gradient(-135deg, #202020 0%, #252D42 100%);
+    background: linear-gradient(-135deg, #202020 0%, #252D42 100%);
+    float: left;
+    top: 0;
+    color: #F6F6F6;
+    height: 100%;
+    width: 12.5em;
+    position: fixed;
+}
+
+.content {
+    margin-left: 12.5em;
+}
+
+.jumbotron {
+    font-family: "Poppins", sans-serif;
+    background-color: transparent;
+    color: #202020;
+}
+.jumbotron h1 {
+    font-weight: 900;
+    letter-spacing: -5px;
+    margin-bottom: 7.5%;
+}
+.jumbotron form{
+    margin-top: 7.5%;
+}
+.leaderboards-hr {
+    width: 25%;
+    border-color: #698DE8;
+
+}
+
+/* /Sidebar and Main Content*/
+
+/*-- Buttons --*/
+.mat-shadow{
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.23);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.23);
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.23);
+    transition: all .2s ease-in-out;
+}
+.btn {
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 0.4em;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.btn:hover {
+    -webkit-box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.23);
+    -moz-box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.23);
+    box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.23);
+}
+
+.button-bg-blue {
+    background: #698DE8;
+    background: -moz-linear-gradient(-45deg, #5BE4FF 10%, rgba(164, 84, 255, 1) 100%);
+    background: -webkit-gradient(-45deg top, right top, color-stop(10%, #5BE4FF), color-stop(100%, rgba(164, 84, 255, 1)));
+    background: -webkit-linear-gradient(45deg, #5BE4FF 10%, rgba(164, 84, 255, 1) 100%);
+    background: -o-linear-gradient(45deg, #5BE4FF 10%, rgba(164, 84, 255, 1) 100%);
+    background: -ms-linear-gradient(45deg, #5BE4FF 10%, rgba(164, 84, 255, 1) 100%);
+    background: linear-gradient(45deg, #5BE4FF 10%, rgba(164, 84, 255, 1) 100%);
+}
+.button-bg-x{
+    background: #ff5e62;
+    background: -moz-linear-gradient(-45deg, #ff9966 10%, #ff5e62 100%);
+    background: -webkit-gradient(-45deg top, right top, color-stop(10%, #ff9966), color-stop(100%, #ff5e62));
+    background: -webkit-linear-gradient(45deg, #ff9966 10%, #ff5e62 100%);
+    background: -o-linear-gradient(45deg, #ff9966 10%, #ff5e62 100%);
+    background: -ms-linear-gradient(45deg, #ff9966 10%, #ff5e62 100%);
+    background: linear-gradient(45deg, #ff9966 10%, #ff5e62 100%);
+}
+input[type=text], input[type=textarea]{
+    padding: 5px 15px;
+    border: none;
+    font-size: 0.9em;
+    border-radius: 0.4em;
+}
+input[type=text]:hover, input[type=textarea]:hover{
+    -webkit-box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.23);
+    -moz-box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.23);
+    box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.23);
+}
+.incorrect-icon{
+    padding: 0 5px;
+}
+/*- /Buttons --*/
+
+/*-- Modal Styles --*/
+.modal-header{
+    background-color: #698DE8;
+    color: #F6F6F6;
+    display: block;
+}
+.modal-body{
+    color: #202020;
+    text-align: center;
+}
+.modal-body button{
+    background-color: #698DE8;
+    color: #F6F6F6;
+    margin-top: 5%;
+    width: 100%;
+}

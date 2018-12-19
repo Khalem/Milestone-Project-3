@@ -67,15 +67,14 @@ def index():
     highscores = get_high_scores()
     # Homne page which allows users to type their usernames
     if request.method == "POST":
-        with open("data/usernames.txt", "a") as user_list:
-            # Appending username to dictionary
+        # Appending username to dictionary
             
-            """
-                To avoid having duplicate usernames, I will add a seperator and a random number up to 1 million. This will be split in the template to only display the name.
-            """
+        """
+            To avoid having duplicate usernames, I will add a seperator and a random number up to 1 million. This will be split in the template to only display the name.
+        """
             
-            username = request.form["username"] + "^" + str(random.randint(1, 1000000))
-            dict_score[username] = 0
+        username = request.form["username"] + "^" + str(random.randint(1, 1000000))
+        dict_score[username] = 0
         return redirect(username)
     return render_template("index.html", highscores = highscores)
     
@@ -97,10 +96,9 @@ def riddles(username, choice):
         textriddle = text_riddles[0]
         
         if request.method == "POST":
-            
+            # To allow for spelling mistakes, I will use a Sequence Matcher and if the likeness ratio is 85% or over, the user will be awarded
             m = SequenceMatcher(None, request.form["guess"].title(), answers[0])
             if m.ratio() >= 0.85:
-                 # If answer is right, user will recieve points
                 dynamic_scoring(incorrect_answers, points)
                 dict_score[username] = points
                 update_scores()
