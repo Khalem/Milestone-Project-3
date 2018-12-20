@@ -138,6 +138,9 @@ input[type=text]:hover, input[type=textarea]:hover{
 .incorrect-icon{
     padding: 0 5px;
 }
+img{
+    max-width: 500px;
+}
 /*- /Buttons --*/
 
 /*-- Modal Styles --*/

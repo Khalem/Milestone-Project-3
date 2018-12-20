@@ -30,7 +30,8 @@
     <!-- User guesses riddles -->
     <div class="jumbotron center content">
         <h1 class="display-4"><span class="bg-blue">{{ riddle_number }}</span> Riddle</h1>
-        <p class="lead">{{ textriddle }}</p>
+        <p id="text-riddle" class="lead">{{ riddle }}</p>
+        <img id="picture-riddle" src={{ riddle }} alt="Riddle Photo"/>
         {% for incorrect in incorrect_answers %}
         <p><small><i class="far fa-times-circle incorrect-icon gradient"></i>{{ incorrect }}</small></p>
         {% endfor %}
@@ -47,7 +48,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title center bold" id="answerCorrectModalLabel">That's Correct!</h5>
-        </button>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <p>Congratulations, but there are still more riddles to answer!</p>
@@ -60,8 +61,31 @@
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    
+    <!-- The following javascript is to check for what type of riddle needs to be displayed, it saves me from having to make a seperate template -->
+    <script>
+        var newString = "{{ riddle }}";
+        var incorrect_answers = "{{ incorrect_answers }}";
+        var subString = newString.substr(0, 3);
+        console.log(subString);
 
-    <script type="text/javascript" src="../../static/javascript/javascript.js"></script>
+        if (subString == "../") {
+            $("#text-riddle").remove();
+        }
+        else {
+            $("#picture-riddle").remove();
+        }
+        
+        
+        // The following code stops the modal from coming up each time the user guesses.
+        if (incorrect_answers == "[]") {
+            $('#answerCorrectModal').modal('show');
+        }
+        else if (incorrect_answers.length > 0) {
+            $('#answerCorrectModal').modal('hide');
+        }
+
+    </script>
 
 </body>
 
