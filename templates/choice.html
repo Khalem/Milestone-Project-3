@@ -13,31 +13,88 @@
 </head>
 
 <body>
-    <!--Sidebar to display scores-->
-    <div class="sidebar">
-        <h3 class="uppercase center">Leaderboards</h3>
-        <hr class="leaderboards-hr" />
-        <!--Putting crown on first place in leaderboards - done by taking first item out of loop and put in manually to add fontawesome.-->
+    <div class="container container-fluid">
+        <!-- Mobile Nav -->
+        <div class="row">
+            <div class="col-xs-12 clearfix visible-xs-block visible-sm-block">
+                <nav>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i id="drop-down" class="fas fa-bars" aria-hidden="true"></i></a>
+                    <div class="dropdown-menu">
+                        <h3 class="uppercase center">Leaderboards</h3>
+                        <hr class="leaderboards-hr" />
+                        <!--Putting crown on first place in leaderboards - done by taking first item out of loop and put in manually to add fontawesome.-->
 
-        {% with new_username = highscores[0][0].split("^") %}
-        <p class="center"><i class="fas fa-crown gradient"></i><span class="bold"> {{new_username[0].title()}}: </span>{{highscores[0][1]}}</p><br/> {% endwith %}
+                        {% with new_username = highscores[0][0].split("^") %}
+                        <p class="center"><i class="fas fa-crown gradient"></i><span class="bold"> {{new_username[0].title()}}: </span>{{highscores[0][1]}}</p><br/> {% endwith %}
 
-        <!-- Splitting username to only display the username, not the unique identifier -->
+                        <!-- Splitting username to only display the username, not the unique identifier -->
 
-        {% for x in highscores %} {% if x == highscores[0]: %} {{ continue }} {% else %} {% with new_username = x[0].split("^") %}
-        <p class="center"><span class="bold">{{ new_username[0].title() }}: </span>{{ x[1] }}</p><br/> {% endwith %} {% endif %} {% endfor %}
+                        {% for x in highscores %}
+                            {% if x == highscores[0]: %} 
+                                {{ continue }} 
+                        
+                            <!-- Not working for some reason, I want to stop the loop once it hits a certain point. This is to prevent long leaderboards on phones -->
+                            <!--{% elif x == highscores[9]: %}-->
+                            <!--    {{ break }}-->
+                        
+                            {% else %}
+                                {% with new_username = x[0].split("^") %}
+                                <p class="center"><span class="bold">{{ new_username[0].title() }}: </span>{{ x[1] }}</p><br/> 
+                                {% endwith %} 
+                            {% endif %} 
+                        {% endfor %}
+                    </div>
+                </nav>
+            </div>
+        
+            <div class="col-xs-12 clearfix visible-md-block visible-lg-block">
+                <!-- Desktop Sidebar -->
+                <div class="sidebar">
+                    <h3 class="uppercase center">Leaderboards</h3>
+                        <hr class="leaderboards-hr" />
+                        <!--Putting crown on first place in leaderboards - done by taking first item out of loop and put in manually to add fontawesome.-->
+
+                        {% with new_username = highscores[0][0].split("^") %}
+                        <p class="center"><i class="fas fa-crown gradient"></i><span class="bold"> {{new_username[0].title()}}: </span>{{highscores[0][1]}}</p><br/> {% endwith %}
+
+                        <!-- Splitting username to only display the username, not the unique identifier -->
+
+                        {% for x in highscores %}
+                            {% if x == highscores[0]: %} 
+                                {{ continue }} 
+                            {% else %}
+                                {% with new_username = x[0].split("^") %}
+                                <p class="center"><span class="bold">{{ new_username[0].title() }}: </span>{{ x[1] }}</p><br/> 
+                                {% endwith %} 
+                            {% endif %} 
+                        {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="jumbotron center content">
-        <!-- User then picks wether he/she wants a photo or text riddles -->
-        <h1 class="display-4"><span class="bg-blue">15</span> Riddles</h1>
-        {% with new_user = username.split("^") %}
-        <p class="lead">We're nearly there {{ new_user[0].title() }}, choose either a <span class="bold">text</span> or <span class="bold">photo</span> riddle.</p>
-        {% endwith %}
-        <form method="POST">
-            <button class="btn mat-shadow button-bg-x" name="choice" value="Photo">Photo</button>
-            <button class="btn mat-shadow button-bg-blue" name="choice" value="Text">Text</button>
-        </form>
+    
+    
+    <div class="container container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="jumbotron center content">
+                    <!-- User then picks wether he/she wants a photo or text riddles -->
+                    <h1 class="display-4"><span class="bg-blue">15</span> Riddles</h1>
+                    {% with new_user = username.split("^") %}
+                    <p class="lead">We're nearly there {{ new_user[0].title() }}, choose either a <span class="bold">text</span> or <span class="bold">photo</span> riddle.</p>
+                    {% endwith %}
+                    <form method="POST">
+                        <button class="btn mat-shadow button-bg-x" name="choice" value="Photo">Photo</button>
+                        <button class="btn mat-shadow button-bg-blue" name="choice" value="Text">Text</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    
 </body>
 
 </html>

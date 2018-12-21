@@ -168,6 +168,10 @@ def get_riddles(username, choice, number):
         
         if request.method == "POST":
             if request.form["play-again"] == "yes":
+                # I need to reset the points if the user chooses to play again, otherwise the next username they enter will start at the points they finished at
+                global points
+                points = 0
+                
                 return redirect("/")
         
         return render_template("finished.html", highscores = highscores, points = points)
