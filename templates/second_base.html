@@ -18,9 +18,10 @@
         <div class="row">
             <div class="col-xs-12 clearfix visible-xs-block visible-sm-block">
                 <nav>
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i id="drop-down" class="fas fa-bars" aria-hidden="true"></i></a>
+                    <a data-toggle="modal" data-target="#questionsModal" href="#" class="bg-blue"><i id="questions" class="far fa-question-circle gradient" aria-hidden="true"></i></a>
+                    <a class="dropdown-toggle bg-purple" data-toggle="dropdown" href="#"><i id="drop-down" class="fas fa-crown"></i></a>
                     <div class="dropdown-menu">
-                        <h3 class="uppercase center">Leaderboards</h3>
+                        <h3 class="uppercase center bold">Leaderboards</h3>
                         <hr class="leaderboards-hr" />
                         <!--Putting crown on first place in leaderboards - done by taking first item out of loop and put in manually to add fontawesome.-->
 
@@ -46,11 +47,12 @@
                     </div>
                 </nav>
             </div>
-        
+            <a data-toggle="modal" data-target="#questionsModal" href="#" class="visible-md-block visible-lg-block"><i id="questions" class="far fa-question-circle gradient" aria-hidden="true"></i></a>
+            
             <div class="col-xs-12 clearfix visible-md-block visible-lg-block">
                 <!-- Desktop Sidebar -->
                 <div class="sidebar">
-                    <h3 class="uppercase center">Leaderboards</h3>
+                    <h3 class="uppercase center bold">Leaderboards</h3>
                         <hr class="leaderboards-hr" />
                         <!--Putting crown on first place in leaderboards - done by taking first item out of loop and put in manually to add fontawesome.-->
 
@@ -73,28 +75,10 @@
         </div>
     </div>
     
-    <div class="container container-fluid">
-        <div class="row">
-            <div class="col-xs-12">
-                <!-- User guesses riddles -->
-                <div class="jumbotron center content">
-                    <h1 class="display-4"><span class="bg-blue">{{ riddle_number }}</span> Riddle</h1>
-                    <p id="text-riddle" class="lead">{{ riddle }}</p>
-                    <img id="picture-riddle" src={{ riddle }} alt="Riddle Photo"/>
-                    {% for incorrect in incorrect_answers %}
-                    <p><small><i class="far fa-times-circle incorrect-icon gradient"></i>{{ incorrect }}</small></p>
-                    {% endfor %}
-                    <form method="POST">
-                        <input class="mat-shadow" type="textarea" name="guess" required/>
-                        <button class="btn mat-shadow button-bg-blue">Submit!</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- Modal -->
+    {% block content %} {% endblock %}
+    
+    
+        <!-- Correct Modal -->
     <div class="modal fade" id="answerCorrectModal" tabindex="-1" role="dialog" aria-labelledby="answerCorrectModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -103,7 +87,39 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Congratulations, but there are still more riddles to answer!</p>
+                    <p id="congrats"></p>
+                    <button type="button" class="btn mat-shadow" data-dismiss="modal">Okay!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Questions Modal -->
+    <div class="modal fade" id="questionsModal" tabindex="-1" role="dialog" aria-labelledby="questionLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title center bold uppercase" id="questionLabel">How it Works</h5>
+                </div>
+                <div class="modal-body">
+                    <h6 class="bold uppercase">Select either text or picture</h6>
+                    <p>Once you have entered your username, you will be given the choice of either a photo or text based riddle. The photo will be <a href="https://en.wikipedia.org/wiki/Rebus" target="_blank">rebus puzzles,</a> and the
+                     text riddles will be short, challenging and sometimes misleading!</p>
+                     <h6 class="bold uppercase">Scoring</h6>
+                     <p>Your score will be based on how many tries it takes you to get a riddle correct.</p>
+                     <ul>
+                         <li><span class="bold">1st Try: </span> 100 points</li>
+                         <li><span class="bold">2nd Try: </span> 90 points</li>
+                         <li><span class="bold">3rd Try: </span> 60 points</li>
+                         <li><span class="bold">4th - 6th Try:</span> 30 points</li>
+                         <li><span class="bold">7th - 10th Try: </span> 15 points</li>
+                         <li><span class="bold">Over 10 Tries: </span> 5 points</li>
+                         <li><span class="bold">Skip: </span> 0 points</li>
+                     </ul>
+                     <h6 class="bold uppercase">Spelling</h6>
+                     <p>We have something in place to catch spelling errors, but please try ensure all words are spelled correctly so you can get a fair score! (E.g instead of "11", type "Eleven")</p>
+                     <h6 class="bold uppercase">Have fun!</h6>
+                     <p>See if you can beat the highscore!</p>
                     <button type="button" class="btn mat-shadow" data-dismiss="modal">Okay!</button>
                 </div>
             </div>
@@ -113,32 +129,35 @@
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    
+    <script type="text/javascript" src="../../static/javascript/javascript.js"></script>
     <!-- The following javascript is to check for what type of riddle needs to be displayed, it saves me from having to make a seperate template -->
     <script>
         var newString = "{{ riddle }}";
         var incorrect_answers = "{{ incorrect_answers }}";
+        var user_number = "{{ user_number }}";
+        var skip = "{{ skip }}";
         var subString = newString.substr(0, 3);
         console.log(subString);
 
         if (subString == "../") {
             $("#text-riddle").remove();
+            new_color();
         }
         else {
             $("#picture-riddle").remove();
         }
         
-        
         // The following code stops the modal from coming up each time the user guesses.
-        if (incorrect_answers == "[]") {
-            $('#answerCorrectModal').modal('show');
-        }
-        else if (incorrect_answers.length > 0) {
-            $('#answerCorrectModal').modal('hide');
-        }
+        if("{{ skip }}" == "False"){
+            if (incorrect_answers == "[]" && user_number > 0) {
+                $('#answerCorrectModal').modal('show');
+            }
+            else if (incorrect_answers.length > 0) {
+                $('#answerCorrectModal').modal('hide');
+            }
+        } 
 
     </script>
-
 </body>
 
 </html>

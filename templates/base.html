@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/main.css" type="text/css" />
+    <title>15 Riddles</title>
+</head>
+
+<body>
+    <div class="container container-fluid">
+        <!-- Mobile Nav -->
+        <div class="row">
+            <div class="col-xs-12 clearfix visible-xs-block visible-sm-block">
+                <nav>
+                    <a data-toggle="modal" data-target="#questionsModal" href="#" class="bg-blue"><i id="questions" class="far fa-question-circle gradient" aria-hidden="true"></i></a>
+                    <a class="dropdown-toggle bg-purple" data-toggle="dropdown" href="#"><i id="drop-down" class="fas fa-crown"></i></a>
+                    <div class="dropdown-menu">
+                        <h3 class="uppercase center bold">Leaderboards</h3>
+                        <hr class="leaderboards-hr" />
+                        <!--Putting crown on first place in leaderboards - done by taking first item out of loop and put in manually to add fontawesome.-->
+
+                        {% with new_username = highscores[0][0].split("^") %}
+                        <p class="center"><i class="fas fa-crown gradient"></i><span class="bold"> {{new_username[0].title()}}: </span>{{highscores[0][1]}}</p><br/> {% endwith %}
+
+                        <!-- Splitting username to only display the username, not the unique identifier -->
+
+                        {% for x in highscores %}
+                            {% if x == highscores[0]: %} 
+                                {{ continue }} 
+                        
+                            <!-- Not working for some reason, I want to stop the loop once it hits a certain point. This is to prevent long leaderboards on phones -->
+                            <!--{% elif x == highscores[9]: %}-->
+                            <!--    {{ break }}-->
+                        
+                            {% else %}
+                                {% with new_username = x[0].split("^") %}
+                                <p class="center"><span class="bold">{{ new_username[0].title() }}: </span>{{ x[1] }}</p><br/> 
+                                {% endwith %} 
+                            {% endif %} 
+                        {% endfor %}
+                    </div>
+                </nav>
+            </div>
+            <a data-toggle="modal" data-target="#questionsModal" href="#" class="visible-md-block visible-lg-block"><i id="questions" class="far fa-question-circle gradient" aria-hidden="true"></i></a>
+            
+            <div class="col-xs-12 clearfix visible-md-block visible-lg-block">
+                <!-- Desktop Sidebar -->
+                <div class="sidebar">
+                    <h3 class="uppercase center bold">Leaderboards</h3>
+                        <hr class="leaderboards-hr" />
+                        <!--Putting crown on first place in leaderboards - done by taking first item out of loop and put in manually to add fontawesome.-->
+
+                        {% with new_username = highscores[0][0].split("^") %}
+                        <p class="center"><i class="fas fa-crown gradient"></i><span class="bold"> {{new_username[0].title()}}: </span>{{highscores[0][1]}}</p><br/> {% endwith %}
+
+                        <!-- Splitting username to only display the username, not the unique identifier -->
+
+                        {% for x in highscores %}
+                            {% if x == highscores[0]: %} 
+                                {{ continue }} 
+                            {% else %}
+                                {% with new_username = x[0].split("^") %}
+                                <p class="center"><span class="bold">{{ new_username[0].title() }}: </span>{{ x[1] }}</p><br/> 
+                                {% endwith %} 
+                            {% endif %} 
+                        {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% block content %} {% endblock %}
+    <!-- Questions Modal -->
+    <div class="modal fade" id="questionsModal" tabindex="-1" role="dialog" aria-labelledby="questionLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title center bold uppercase" id="questionLabel">How it Works</h5>
+                </div>
+                <div class="modal-body">
+                    <h6 class="bold uppercase">Select either text or picture</h6>
+                    <p>Once you have entered your username, you will be given the choice of either a photo or text based riddle. The photo will be <a href="https://en.wikipedia.org/wiki/Rebus" target="_blank">rebus puzzles,</a> and the
+                     text riddles will be short, challenging and sometimes misleading!</p>
+                     <h6 class="bold uppercase">Scoring</h6>
+                     <p>Your score will be based on how many tries it takes you to get a riddle correct.</p>
+                     <ul>
+                         <li><span class="bold">1st Try: </span> 100 points</li>
+                         <li><span class="bold">2nd Try: </span> 90 points</li>
+                         <li><span class="bold">3rd Try: </span> 60 points</li>
+                         <li><span class="bold">4th - 6th Try:</span> 30 points</li>
+                         <li><span class="bold">7th - 10th Try: </span> 15 points</li>
+                         <li><span class="bold">Over 10 Tries: </span> 5 points</li>
+                         <li><span class="bold">Skip: </span> 0 points</li>
+                     </ul>
+                     <h6 class="bold uppercase">Spelling</h6>
+                     <p>We have something in place to catch spelling errors, but please try ensure all words are spelled correctly so you can get a fair score! (E.g instead of "11", type "Eleven")</p>
+                     <h6 class="bold uppercase">Have fun!</h6>
+                     <p>See if you can beat the highscore!</p>
+                    <button type="button" class="btn mat-shadow" data-dismiss="modal">Okay!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+
+</html>

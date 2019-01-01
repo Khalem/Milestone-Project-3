@@ -1,4 +1,4 @@
-/*  --------- Text Styles --------*/
+/*-- Text Styles --*/
 
 body {
     background-color: #F6F6F6;
@@ -30,20 +30,70 @@ body {
     -webkit-text-fill-color: transparent;
 }
 
+#questions {
+    position: relative;
+    float: left;
+    display: inline-block;
+    font-size: 32px;
+    margin-top: 11px;
+    margin-left: 25px;
+}
+
 h3 {
-    font-weight: 700;
     margin: 1em;
     letter-spacing: 0.2em;
     font-size: 1em;
 }
 
 .bg-blue {
-    color: #698DE8;
+    color: #5be4ff;
+    transition: .2s all ease-in-out;
 }
 
-/*  -------- /Text Styles --------*/
+.bg-blue:hover {
+    color: #5ddff9;
+}
 
-/* Sidebar and Main Content */
+/*-- /Text Styles --*/
+
+/*-- Heading Styles For JS --*/
+
+.bg-purple {
+    color: #9670ff;
+    transition: .2s all ease-in-out;
+}
+
+.bg-purple:hover {
+    color: #9f7cfd;
+}
+
+.bg-green {
+    color: #32e5c8;
+}
+
+.bg-pink {
+    color: #c537c9;
+}
+
+.bg-light-pink {
+    color: #fc668c;
+}
+
+.green-6 {
+    color: #9ffb7f;
+}
+
+.peach-8 {
+    color: #fd8d67;
+}
+
+.blue-9 {
+    color: #5092e8;
+}
+
+/*-- /Heading Styles For JS --*/
+
+/*-- Sidebar and Main Content --*/
 
 .sidebar {
     background: #202020;
@@ -61,6 +111,11 @@ h3 {
     position: fixed;
 }
 
+.leaderboards-hr {
+    width: 25%;
+    border-color: #698DE8;
+}
+
 .jumbotron {
     font-family: "Poppins", sans-serif;
     background-color: transparent;
@@ -68,6 +123,7 @@ h3 {
 }
 
 .jumbotron h1 {
+    font-size: 48px;
     font-weight: 900;
     letter-spacing: -5px;
     margin-bottom: 15%;
@@ -77,13 +133,12 @@ h3 {
     margin-top: 15%;
 }
 
-.leaderboards-hr {
-    width: 25%;
-    border-color: #698DE8;
-
+img {
+    max-width: 100%;
+    height: auto;
 }
 
-/* /Sidebar and Main Content*/
+/*-- /Sidebar and Main Content --*/
 
 /*-- Buttons --*/
 
@@ -94,10 +149,18 @@ h3 {
     transition: all .2s ease-in-out;
 }
 
+.mat-shadow:hover {
+    -webkit-box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.23);
+    -moz-box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.23);
+    box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.23);
+}
+
 .btn {
+    width: 100%;
     font-weight: 700;
-    padding: 4px 12px;
+    padding: 8px 13px;
     border-radius: 0.4em;
+    margin: 50px 0;
     border: none;
     color: white;
     cursor: pointer;
@@ -105,9 +168,6 @@ h3 {
 
 .btn:hover {
     color: white;
-    -webkit-box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.23);
-    -moz-box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.23);
-    box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.23);
 }
 
 .button-bg-blue {
@@ -120,7 +180,7 @@ h3 {
     background: linear-gradient(45deg, #5BE4FF 10%, rgba(164, 84, 255, 1) 100%);
 }
 
-.button-bg-x {
+.button-bg-green {
     background: #698DE8;
     background: -moz-linear-gradient(-135deg, #5BE4FF 10%, #00E887 100%);
     background: -webkit-gradient(-135deg top, right top, color-stop(10%, #5BE4FF), color-stop(100%, #00E887));
@@ -132,34 +192,23 @@ h3 {
 
 input[type=text],
 input[type=textarea] {
-    padding: 5px 15px;
+    width: 100%;
+    padding: 8px 15px;
     border: none;
     font-size: 0.9em;
     border-radius: 0.4em;
-}
-
-input[type=text]:hover,
-input[type=textarea]:hover {
-    -webkit-box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.23);
-    -moz-box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.23);
-    box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.23);
 }
 
 .incorrect-icon {
     padding: 0 5px;
 }
 
-img {
-    max-width: 100%;
-    height: auto;
-}
-
-/*- /Buttons --*/
+/*-- /Buttons --*/
 
 /*-- Modal Styles --*/
 
 .modal-header {
-    background-color: #698DE8;
+    background-color: #8966ea;
     color: #F6F6F6;
     display: block;
 }
@@ -169,14 +218,32 @@ img {
     text-align: center;
 }
 
-.modal-body button {
-    background-color: #698DE8;
-    color: #F6F6F6;
-    margin-top: 5%;
-    width: 100%;
+.modal-body h6 {
+    font-size: 16px;
 }
 
-/*Responsive Leaderboards*/
+.modal-body ul {
+    text-align: left;
+}
+
+.modal-body a {
+    color: #8966ea;
+    text-decoration: none;
+}
+
+.modal-body button {
+    background-color: #8966ea;
+    color: #F6F6F6;
+    margin-top: 5%;
+}
+
+.modal-body button:hover {
+    background-color: #9670ff;
+}
+
+/*-- /Modal Styles --*/
+
+/*-- Responsive Leaderboards --*/
 
 .dropdown-menu {
     width: 100%;
@@ -189,6 +256,7 @@ img {
     background: linear-gradient(-135deg, #202020 0%, #252D42 100%);
 
 }
+
 .dropdown-menu h3,
 .dropdown-menu p {
     margin: 10;
@@ -198,9 +266,8 @@ img {
 
 }
 
-
 #drop-down {
-    font-size: 28px;
+    font-size: 32px;
     margin-top: 11px;
     margin-right: 25px;
     float: right;
@@ -216,8 +283,35 @@ img {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00e6ff', endColorstr='#a454ff', GradientType=1);
 }
 
+/*-- /Responsive Leaderboards --*/
+
+/*-- Responsive Content --*/
+
 @media only screen and (min-width:769px) {
     .content {
         margin-left: 12.5em;
     }
+    .btn {
+        width: 82px;
+        font-weight: 700;
+        padding: 4px 12px;
+        margin: 0 5px;
+    }
+    #play-again-btn {
+        width: auto;
+    }
+    input[type=text],
+    input[type=textarea] {
+        width: auto;
+        padding: 5px 15px;
+    }
+    #questions {
+        float: right;
+        font-size: 38px;
+    }
+    .jumbotron h1 {
+        font-size: 64px;
+    }
 }
+
+/*-- /Responsive Content --*/
