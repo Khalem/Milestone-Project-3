@@ -33,11 +33,6 @@
                         {% for x in highscores %}
                             {% if x == highscores[0]: %} 
                                 {{ continue }} 
-                        
-                            <!-- Not working for some reason, I want to stop the loop once it hits a certain point. This is to prevent long leaderboards on phones -->
-                            <!--{% elif x == highscores[9]: %}-->
-                            <!--    {{ break }}-->
-                        
                             {% else %}
                                 {% with new_username = x[0].split("^") %}
                                 <p class="center"><span class="bold">{{ new_username[0].title() }}: </span>{{ x[1] }}</p><br/> 

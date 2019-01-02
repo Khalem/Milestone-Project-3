@@ -75,9 +75,9 @@ with my own mobile and I am very pleased with the results. The website works on 
 ## Deployment
 
 I deployed the website onto Heroku. There were some problems with
-the deployment. Upon pushing the site onto heroku, I got an error that a requirement could not be installed. At first I deleted 3 requirements
-that would not work on heroku. This lead to a problem with the code. The "unicode()" function would now not work.
-In the logs, I saw that heroku read it as an undefined variable. 
+the deployment. Upon pushing the site onto heroku, I got an error that a requirement could not be installed. After spending hours researching
+a fix, I read deleting the 3 requirements was a viable option. This lead to a problem with the code. The "unicode()" function would now not work.
+In the logs, I saw that heroku read it as an undefined variable. I fixed this by just changing the code inside the function. Website works perfectly now.
 
 You can view the website [here!](https://khalem-milestone-project-3.herokuapp.com/)
 

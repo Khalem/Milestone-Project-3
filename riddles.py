@@ -179,7 +179,7 @@ def riddles(username, choice, number):
                 
     return render_template("quiz.html", riddle = riddle, incorrect_answers = incorrect_answers, highscores = highscores, riddle_number = riddle_number, skip = skip, user_number = user_number)
 
-app.run(host=os.getenv('IP', '0.0.0.0'), port=int(os.getenv('PORT', '5000')), debug=True)
+app.run(host=os.getenv('IP', '0.0.0.0'), port=int(os.getenv('PORT', '5000')), debug=False)
 
 
     
