@@ -81,8 +81,6 @@ In the logs, I saw that heroku read it as an undefined variable. I fixed this by
 
 You can view the website [here!](https://khalem-milestone-project-3.herokuapp.com/)
 
-There is also a git repository which you can view [here.](https://github.com/Khalem/Milestone-Project-3)
-
 To run this code locally, I use Visual Studio 2017/ Port 5000.
 
 ## Credits
