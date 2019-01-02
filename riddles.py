@@ -107,7 +107,7 @@ def update_number(number):
     """
     This function will just increase the number, while converting it to unicode
     """
-    return unicode(number + 1)
+    return str(number + 1).encode("utf-8").decode("utf-8") 
 
 @app.route('/', methods=["GET", "POST"])
 def index():
