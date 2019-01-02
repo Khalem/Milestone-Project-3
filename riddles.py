@@ -5,7 +5,6 @@ from flask import Flask, redirect, render_template, request
 from difflib import SequenceMatcher
 
 app = Flask(__name__)
-app.secret_key = os.getenv("SECRET", "randomstring123")
 
 text_riddles = ["What is black and white and red all over?", 
                 "What do you call 2 witches that live together?", 
