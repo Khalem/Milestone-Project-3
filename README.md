@@ -75,7 +75,7 @@ I deployed the website onto Heroku. You can view the website [here!](https://kha
 
 There is also a git repository which you can view [here.](https://github.com/Khalem/Milestone-Project-3)
 
-To run this code locally, I use Visual Studio 2017.
+To run this code locally, I use Visual Studio 2017/ Port 5000.
 
 ## Credits
 
