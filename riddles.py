@@ -3,6 +3,7 @@ import json
 import random
 from flask import Flask, redirect, render_template, request
 from difflib import SequenceMatcher
+from unidecode import unidecode
 
 app = Flask(__name__)
 
