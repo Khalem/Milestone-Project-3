@@ -22,7 +22,7 @@ the flow of the website, I re-created the rebus puzzles so the font and color sc
 - **As a user, I can:**  Click on a button to see how to game is scored/played.
 - **As a user, I can:** Answer a riddle and if the answer is incorrect, see it posted on the page.
 
-I have left both a .pdf and .xd files in the cloud9 workspace.
+I have left both a .pdf and .xd files in the [cloud9 workspace.](https://ide.c9.io/khalemc/milestone-project-3)
 
 ## Features
 
