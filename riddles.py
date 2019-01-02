@@ -3,7 +3,6 @@ import json
 import random
 from flask import Flask, redirect, render_template, request
 from difflib import SequenceMatcher
-from unidecode import unidecode
 
 app = Flask(__name__)
 
@@ -160,6 +159,7 @@ def riddles(username, choice, number):
         # If a user skips a riddle, they will be awarded 0 points and redirected to the next riddle
         if request.form["guess"] == "":
             skip = True
+            incorrect_answers[:] = []
             return redirect(username + "/" + choice + "/" + update_number(user_number))
         
         # To allow for spelling mistakes, I will use a Sequence Matcher and if the likeness ratio is 70% or over, the user will be awarded
@@ -179,7 +179,7 @@ def riddles(username, choice, number):
                 
     return render_template("quiz.html", riddle = riddle, incorrect_answers = incorrect_answers, highscores = highscores, riddle_number = riddle_number, skip = skip, user_number = user_number)
 
-app.run(host=os.getenv('IP', '0.0.0.0'), port=int(os.getenv('PORT', '5000')), debug=False)
+app.run(host=os.getenv('IP', '0.0.0.0'), port=int(os.getenv('PORT', '5000')), debug=True)
 
 
     

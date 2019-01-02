@@ -65,13 +65,21 @@ For my manual tests, I tested all features to find any bugs.
 - General Redirects: I clicked on every possible button that would redirect, it all works as inteded.
 - Answering incorrect: Answering incorrectly will display your incorrect answer and will not advance you to the next question. Answering correctly with a spelling mistake will still advance you to the next quesiton.
 
+Upon manually testing certain aspects of the website, I learned that when you answered a question wrong then skipped it, the incorrect answer(s)
+would be displayed on the next riddle. It was an easy fix, I forgot to add in a line of code that would clear the incorrect list.
+
 #### Responsiveness
 I tested the responsiveness of this website with chrome developer tools and with [Responsinator](https://www.responsinator.com/). I saw no issue with any device. But just to be safe, I tested it 
 with my own mobile and I am very pleased with the results. The website works on all browsers also.
 
 ## Deployment
 
-I deployed the website onto Heroku. You can view the website [here!](https://khalem-milestone-project-3.herokuapp.com/)
+I deployed the website onto Heroku. There were some problems with
+the deployment. Upon pushing the site onto heroku, I got an error that a requirement could not be installed. At first I deleted 3 requirements
+that would not work on heroku. This lead to a problem with the code. The "unicode()" function would now not work.
+In the logs, I saw that heroku read it as an undefined variable. 
+
+You can view the website [here!](https://khalem-milestone-project-3.herokuapp.com/)
 
 There is also a git repository which you can view [here.](https://github.com/Khalem/Milestone-Project-3)
 
